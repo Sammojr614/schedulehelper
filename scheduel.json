@@ -1,0 +1,16 @@
+{
+    "assignments":[
+        {"nameOf":"Check assignments",
+        "class":"DMfC",
+        "startTime":13,
+        "endTime":14},
+        {"nameOf":"Make Sure Lab 3 is done",
+        "class":"ItPL",
+        "startTime":15,
+        "endTime":16},
+        {"nameOf":"Meeting",
+        "class":"ItPL",
+        "startTime":18,
+        "endTime":21}
+    ]
+}
