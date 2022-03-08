@@ -23,13 +23,14 @@ get_array(classNames,"class")
 get_array(assignmentNames,'nameOf')
 get_array(startTimes,'startTime')
 get_array(endTimes,'endTime')
-assignment_label = Label(win, text="test")
-assignment_label.place(x=510,y=475)
+assignment_label = Label(win, text="test", font=('pf tempesta five', 20,'bold'))
+assignment_label.place(x=200,y=475)
 def assignment_clock():
     
     global startIdx
     now = dt.datetime.now()
-    if now.hour > startTimes[startIdx] and now.hour < endTimes[startIdx]:
+
+    if now.hour >= startTimes[startIdx] and now.hour <= endTimes[startIdx]:
         assignment_label.config(text=f" Current assignment: {assignmentNames[startIdx]}\n For: {classNames[startIdx]} \n Please Complete By: {endTimes[startIdx] - 12} pm")
         assignment_label.after(1000,assignment_clock)
     elif now.hour > endTimes[startIdx]:
@@ -52,8 +53,8 @@ def clock():
     clockLabel.config(text = string)
     clockLabel.after(1000,clock)
     
-clockLabel = Label(win,font=('calibri',40,'bold'))
-clockLabel.place(x=510,y=400)
+clockLabel = Label(win,font=('pf tempesta five',70,'bold'))
+clockLabel.place(x=450,y=200)
 
 clock()
 assignment_clock()

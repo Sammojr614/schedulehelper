@@ -1,16 +1,20 @@
 {
     "assignments":[
-        {"nameOf":"Check assignments",
+        {"nameOf":"Look at Lab 1 for this week",
         "class":"DMfC",
         "startTime":13,
         "endTime":14},
-        {"nameOf":"Make Sure Lab 3 is done",
+        {"nameOf":"Start Cloud Computing",
         "class":"ItPL",
         "startTime":15,
         "endTime":16},
+        {"nameOf":"Break",
+        "class":"All",
+        "startTime":17,
+        "endTime":18},
         {"nameOf":"Meeting",
-        "class":"ItPL",
+        "class":"DMfC",
         "startTime":18,
-        "endTime":21}
+        "endTime":19}
     ]
 }
