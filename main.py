@@ -29,14 +29,12 @@ def assignment_clock():
     
     global startIdx
     now = dt.datetime.now()
-
-    if now.hour >= startTimes[startIdx] and now.hour <= endTimes[startIdx]:
+    if now.hour <= startTimes[startIdx] and now.hour <= endTimes[startIdx]:
         assignment_label.config(text=f" Current assignment: {assignmentNames[startIdx]}\n For: {classNames[startIdx]} \n Please Complete By: {endTimes[startIdx] - 12} pm")
         assignment_label.after(1000,assignment_clock)
-    elif now.hour > endTimes[startIdx]:
+    elif now.hour >= endTimes[startIdx]:
         if startIdx < len(assignmentNames):
             startIdx += 1
-            assignment_clock(1000,assignment_clock)
         assignment_label.after(1000, assignment_clock)
     elif now.hour < startTimes[0]:
         assignment_label.config(text=f"Free Time Untill: {startTimes[0] - 12}")
