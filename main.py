@@ -39,9 +39,9 @@ def assignment_clock():
     elif now.hour < startTimes[0]:
         assignment_label.config(text=f"Free Time Untill: {startTimes[0] - 12}")
         assignment_label.after(1000,assignment_clock)
-    if now.hour > endTimes[len(endTimes) -1]:
+    if now.hour >= endTimes[len(endTimes) -1]:
         assignment_label.config(text="Done For Today!")
-        assignment_label.after(assignment_clock)
+        assignment_label.after(1000,assignment_clock)
        
         
         
