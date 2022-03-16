@@ -1,0 +1,9 @@
+{
+  "assingments": [{
+    "nameOf": "test",
+    "className":"testClass",
+    "startTime": 5,
+    "endTime": 7
+
+  }]
+}
