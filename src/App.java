@@ -4,8 +4,10 @@ import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
+import java.awt.*;
 import java.io.FileReader;
 import java.util.*;
+import java.util.List;
 
 public class App {
     public static List<String> names = new ArrayList<>();
@@ -61,28 +63,27 @@ class readsched extends JFrame{
     }
 
 }
-class guiActionArea extends JPanel{
-    gui mainGui = new gui();
-    guiActionArea(){
-    initActionArea();
-    }
-    private void initActionArea(){
-        setSize(mainGui.getWidth(),mainGui.getHeight());
-    }
-}
+
+
 class gui extends JFrame {
     readsched reader = new readsched();
-    guiActionArea actionArea = new guiActionArea();
+    JPanel guiActionArea = new JPanel(new BorderLayout());
+
     gui() {
         initGui();
     }
 
     private void initGui() {
         createMenuBar();
-        actionArea.setVisible(true);
+        initActionArea();
         setTitle("Schedule Helper");
         setSize(320,320);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+    }
+    private void initActionArea(){
+      setContentPane(guiActionArea);
+      JButton testButton = new JButton();
+      guiActionArea.add(testButton, BorderLayout.WEST);
     }
     private void createMenuBar(){
         var menubar = new JMenuBar();
