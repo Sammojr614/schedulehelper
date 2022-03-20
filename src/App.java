@@ -33,6 +33,7 @@ public class App {
         }
     }
 }
+//This Class is The Window that Can be opened From the first
 class readsched extends JFrame{
     JPanel actionArea = new JPanel();
     readsched(){
@@ -42,7 +43,7 @@ class readsched extends JFrame{
         JSONParser parser = new JSONParser();
             try{
 
-                JSONObject obj = (JSONObject) parser.parse(new FileReader("C:/Users/epicz/Documents/GitHub/schedulehelper/src/schedule.json"));
+                JSONObject obj = (JSONObject) parser.parse(new FileReader("src/schedule.json"));
                 JSONArray arr = (JSONArray) obj.get("assignments");
                 for(Object o: arr) {
                 JSONObject getName = (JSONObject) o;
@@ -82,6 +83,7 @@ class readsched extends JFrame{
     }
 
 }
+//For the Clock Label
 class TellTime{
    static int hour,minutes,seconds;
    static String time24;
@@ -116,7 +118,7 @@ class TellTime{
         }
     }
 }
-
+//The First Window 
 class gui extends JFrame {
     readsched reader = new readsched();
     public static JPanel guiActionArea = new JPanel(null);
@@ -135,8 +137,7 @@ class gui extends JFrame {
     public void initActionArea(){
       setContentPane(guiActionArea);
         TellTime clock = new TellTime();
-      JLabel TimeLabel = new JLabel();
-      TimeLabel.setText(clock.time24);
+      JLabel TimeLabel = new JLabel("Poop");
       TimeLabel.setBounds(10,10,1280,300);
       TimeLabel.setFont(TimeLabel.getFont().deriveFont(90.0f));
       guiActionArea.add(TimeLabel);
