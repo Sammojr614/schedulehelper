@@ -1,9 +1,12 @@
 {
-  "assingments": [{
-    "nameOf": "test",
-    "className":"testClass",
-    "startTime": 5,
-    "endTime": 7
+  "assignments": [{
+    "nameOf": "Python Lab",
+    "className":"ItPL",
+    "startTime": "5",
+    "endTime": "5"
 
-  }]
+  }, {"nameOf": "Lab",
+      "className":  "DMfC",
+      "startTime": "5",
+      "endTime":  "5"} ]
 }
