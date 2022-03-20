@@ -21,6 +21,8 @@ public class App {
 
         gui loadGui = new gui();
         loadGui.setVisible(true);
+        TellTime time = new TellTime();
+        time.update();
     }
 }
 class readsched extends JFrame{
@@ -32,7 +34,7 @@ class readsched extends JFrame{
         JSONParser parser = new JSONParser();
             try{
 
-                JSONObject obj = (JSONObject) parser.parse(new FileReader("C:/Users/sammo/Desktop/Schedue/schedulehelper/src/schedule.json"));
+                JSONObject obj = (JSONObject) parser.parse(new FileReader("C:/Users/epicz/Documents/GitHub/schedulehelper/src/schedule.json"));
                 JSONArray arr = (JSONArray) obj.get("assignments");
                 for(Object o: arr) {
                 JSONObject getName = (JSONObject) o;
@@ -75,13 +77,18 @@ class readsched extends JFrame{
 class TellTime{
    static int hour,minutes,seconds;
     String time24;
+    static Calendar cal = Calendar.getInstance();
     public TellTime(){
-        Calendar cal = Calendar.getInstance();
+
+
         hour = cal.get(Calendar.HOUR_OF_DAY);
         minutes = cal.get(Calendar.MINUTE);
         seconds = cal.get(Calendar.SECOND);
 
-        while(true){
+    }
+
+    public void update(){
+        while(seconds < 59){
             seconds = cal.get(Calendar.SECOND);
             if(seconds >= 59){
                 hour = cal.get(Calendar.HOUR_OF_DAY);
@@ -91,8 +98,6 @@ class TellTime{
                 time24 = sdf12.format(dat);
             }
         }
-
-
     }
 }
 
