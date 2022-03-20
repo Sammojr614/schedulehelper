@@ -17,6 +17,7 @@ public class App {
     public static List<String> startTimes = new ArrayList<>();
     public static List<String> endTimes = new ArrayList<>();
 
+    public static boolean changeTime = false;
     public static void main(String[] args) throws Exception {
 
         gui loadGui = new gui();
@@ -24,6 +25,11 @@ public class App {
         TellTime time = new TellTime();
         while(true){
             time.update();
+            if(changeTime){
+                loadGui.guiActionArea.remove(0);
+                loadGui.initActionArea();
+                changeTime = false;
+            }
         }
     }
 }
@@ -78,7 +84,8 @@ class readsched extends JFrame{
 }
 class TellTime{
    static int hour,minutes,seconds;
-    String time24;
+   static String time24;
+   static boolean canChange = true;
 
     public TellTime(){
 
@@ -86,26 +93,33 @@ class TellTime{
         hour = cal.get(Calendar.HOUR_OF_DAY);
         minutes = cal.get(Calendar.MINUTE);
         seconds = cal.get(Calendar.SECOND);
+        SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm aa");
+        Date dat = cal.getTime();
+        time24 = sdf12.format(dat);
 
     }
 
     public void update(){
         Calendar cal = Calendar.getInstance();
         seconds = cal.get(Calendar.SECOND);
-        if(seconds >= 59){
+        if(seconds == 0 && canChange){
             hour = cal.get(Calendar.HOUR_OF_DAY);
             minutes = cal.get(Calendar.MINUTE);
             SimpleDateFormat sdf12 = new SimpleDateFormat("hh:mm aa");
             Date dat = cal.getTime();
             time24 = sdf12.format(dat);
+            App.changeTime = true;
+            canChange = false;
         }
-        System.out.println(seconds);
+        if(seconds == 1) {
+            canChange = true;
+        }
     }
 }
 
 class gui extends JFrame {
     readsched reader = new readsched();
-    JPanel guiActionArea = new JPanel(null);
+    public static JPanel guiActionArea = new JPanel(null);
 
     gui() {
         initGui();
@@ -118,7 +132,7 @@ class gui extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         initActionArea();
     }
-    private void initActionArea(){
+    public void initActionArea(){
       setContentPane(guiActionArea);
         TellTime clock = new TellTime();
       JLabel TimeLabel = new JLabel();
@@ -126,6 +140,7 @@ class gui extends JFrame {
       TimeLabel.setBounds(10,10,1280,300);
       TimeLabel.setFont(TimeLabel.getFont().deriveFont(90.0f));
       guiActionArea.add(TimeLabel);
+      App.changeTime = false;
 
 
 
