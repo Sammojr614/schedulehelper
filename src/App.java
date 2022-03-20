@@ -1,11 +1,10 @@
 import javax.swing.*;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
-import java.lang.*;
+
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
 
-import java.awt.*;
+
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -17,7 +16,6 @@ public class App {
     public static List<String> classNames = new ArrayList<>();
     public static List<String> startTimes = new ArrayList<>();
     public static List<String> endTimes = new ArrayList<>();
-    public static  Boolean isRunning = false;
 
     public static void main(String[] args) throws Exception {
 
@@ -79,6 +77,9 @@ class TellTime{
     String time24;
     public TellTime(){
         Calendar cal = Calendar.getInstance();
+        hour = cal.get(Calendar.HOUR_OF_DAY);
+        minutes = cal.get(Calendar.MINUTE);
+        seconds = cal.get(Calendar.SECOND);
 
         while(true){
             seconds = cal.get(Calendar.SECOND);
