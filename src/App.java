@@ -114,7 +114,7 @@ class TellTime{
 
             if(hour > App.startTimes.get(gui.startIdx) && hour <= App.endTimes.get(gui.startIdx)){
                gui.AssignmentLabel.setText(App.names.get(gui.startIdx) + " For " + App.classNames.get(gui.startIdx));
-            }else if(hour > App.startTimes.get(gui.startIdx)){
+            }else if(hour > App.endTimes.get(gui.startIdx) ){
                 if(gui.startIdx <= App.startTimes.size()){
                     gui.startIdx++;
                 }
