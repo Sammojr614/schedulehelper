@@ -137,7 +137,7 @@ class gui extends JFrame {
     public void initActionArea(){
       setContentPane(guiActionArea);
         TellTime clock = new TellTime();
-      JLabel TimeLabel = new JLabel("Poop");
+      JLabel TimeLabel = new JLabel(clock.time24);
       TimeLabel.setBounds(10,10,1280,300);
       TimeLabel.setFont(TimeLabel.getFont().deriveFont(90.0f));
       guiActionArea.add(TimeLabel);
