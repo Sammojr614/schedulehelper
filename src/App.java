@@ -1,28 +1,45 @@
 import javax.swing.*;
-
-
 import org.json.simple.*;
 import org.json.simple.parser.*;
-
-
 import java.io.FileReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
-import java.time.*;
+/*
+ School Scheduel Helper, First Made in Python By Sam Heiligmann only, then remade in java with The Help of Zach Millisor
+*/
 
 public class App {
     public static List<String> names = new ArrayList<>();
     public static List<String> classNames = new ArrayList<>();
-    public static List<String> startTimes = new ArrayList<>();
-    public static List<String> endTimes = new ArrayList<>();
+    public static List<Long> startTimes = new ArrayList<>();
+    public static List<Long> endTimes = new ArrayList<>();
 
     public static boolean changeTime = false;
     public static void main(String[] args) throws Exception {
 
+        TellTime time = new TellTime();
+        JSONParser parser = new JSONParser();
+        try{
+
+            JSONObject obj = (JSONObject) parser.parse(new FileReader("src/schedule.json"));
+            JSONArray arr = (JSONArray) obj.get("assignments");
+            for(Object o: arr) {
+                JSONObject getName = (JSONObject) o;
+                String name = (String) getName.get("nameOf");
+                String className = (String) getName.get("className");
+                Long startTimes = (Long) getName.get("startTime");
+                Long endTimes  = (Long)getName.get("endTime");
+                classNames.add(className);
+                names.add(name);
+                App.startTimes.add(startTimes);
+                App.endTimes.add(endTimes);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
         gui loadGui = new gui();
         loadGui.setVisible(true);
-        TellTime time = new TellTime();
         while(true){
             time.update();
             if(changeTime){
@@ -39,29 +56,8 @@ class readsched extends JFrame{
     readsched(){
         initGui();
     }
-    private void readFile(){
-        JSONParser parser = new JSONParser();
-            try{
 
-                JSONObject obj = (JSONObject) parser.parse(new FileReader("src/schedule.json"));
-                JSONArray arr = (JSONArray) obj.get("assignments");
-                for(Object o: arr) {
-                JSONObject getName = (JSONObject) o;
-                String name = (String) getName.get("nameOf");
-                String className = (String) getName.get("className");
-                String startTimes = (String) getName.get("startTime");
-                String endTimes  = (String)getName.get("endTime");
-                App.classNames.add(className);
-                App.names.add(name);
-                App.startTimes.add(startTimes);
-                App.endTimes.add(endTimes);
-                }
-            }catch(Exception e){
-                e.printStackTrace();
-            }
-    }
     private void initGui(){
-        readFile();
         createMenuBar();
         setTitle("Edit Schedule");
         setSize(320,320);
@@ -104,6 +100,9 @@ class TellTime{
     public void update(){
         Calendar cal = Calendar.getInstance();
         seconds = cal.get(Calendar.SECOND);
+        if(hour < App.startTimes.get(0)){
+            gui.startIdx = 0;
+        }
         if(seconds == 0 && canChange){
             hour = cal.get(Calendar.HOUR_OF_DAY);
             minutes = cal.get(Calendar.MINUTE);
@@ -112,6 +111,16 @@ class TellTime{
             time24 = sdf12.format(dat);
             App.changeTime = true;
             canChange = false;
+
+            if(hour > App.startTimes.get(gui.startIdx) && hour <= App.endTimes.get(gui.startIdx)){
+                gui.guiActionArea.remove(gui.AssignmentLabel);
+               gui.AssignmentLabel.setText(App.names.get(gui.startIdx) + " For " + App.classNames.get(gui.startIdx));
+                gui.guiActionArea.add(gui.AssignmentLabel);
+            }else if(hour > App.startTimes.get(gui.startIdx)){
+                if(gui.startIdx <= App.startTimes.size()){
+                    gui.startIdx++;
+                }
+            }
         }
         if(seconds == 1) {
             canChange = true;
@@ -122,6 +131,8 @@ class TellTime{
 class gui extends JFrame {
     readsched reader = new readsched();
     public static JPanel guiActionArea = new JPanel(null);
+    public static JLabel AssignmentLabel = new JLabel();
+    public static Integer startIdx = 0;
 
     gui() {
         initGui();
@@ -137,10 +148,13 @@ class gui extends JFrame {
     public void initActionArea(){
       setContentPane(guiActionArea);
         TellTime clock = new TellTime();
-      JLabel TimeLabel = new JLabel("Poop");
-      TimeLabel.setBounds(10,10,1280,300);
+      JLabel TimeLabel = new JLabel(clock.time24);
+      TimeLabel.setBounds(500,50,650,300);
       TimeLabel.setFont(TimeLabel.getFont().deriveFont(90.0f));
+      AssignmentLabel.setFont(AssignmentLabel.getFont().deriveFont(30.0f));
+      AssignmentLabel.setBounds(500,250,650,200);
       guiActionArea.add(TimeLabel);
+      guiActionArea.add(AssignmentLabel);
       App.changeTime = false;
 
 

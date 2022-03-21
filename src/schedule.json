@@ -2,11 +2,11 @@
   "assignments": [{
     "nameOf": "Python Lab",
     "className":"ItPL",
-    "startTime": "5",
-    "endTime": "5"
+    "startTime": 18,
+    "endTime": 19
 
   }, {"nameOf": "Lab",
       "className":  "DMfC",
-      "startTime": "5",
-      "endTime":  "5"} ]
+      "startTime": 20,
+      "endTime":  21} ]
 }
